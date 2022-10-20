@@ -46,6 +46,8 @@ paths:
           description: Non autorisé
         '404':
           description: Aucun trajet trouvé
+        '504':
+          description: Le service externe n'a pas répondu
       security:
         - microservices_auth: []
   /servicesDisponibles:
