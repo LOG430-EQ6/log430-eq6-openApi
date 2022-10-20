@@ -20,7 +20,7 @@ tags:
     description: Interface du service trajet
 paths:
   /trajet:
-    get:
+    post:
       tags:
         - Trajet
       summary: Obtenir un trajet
@@ -41,11 +41,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/getTrajetOutput'
         '400':
-          description: Adresses invalides
+          description: Adresse(s) invalide(s)
         '401':
-          description: Aucun trajet trouvé
-        '404':
           description: Non autorisé
+        '404':
+          description: Aucun trajet trouvé
       security:
         - microservices_auth: []
 components:
@@ -53,35 +53,38 @@ components:
     getTrajetInput:
       type: object
       properties:
-        address1:
+        adresse1:
           type: string
           example: 
-        address2:
+        adresse2:
           type: string
           example: 
         mode:
           type: string
           example: auto, bus
-    getTrajetOutput:
+        serviceExterne:
+          type: string
+          exemple: api.stm.info
+    TrajetArray:
       type: array
       items: 
         $ref: '#/components/schemas/Trajet'
     Trajet:
       type: object
       properties:
-        name:
+        nom:
           type: string
-          example: 437 Lytton
-        departureTime:
+          example: 97 Mont-Royal
+        heureDepart:
           type: number
           example: 1666196380425
-        duration:
+        durée:
           type: number
           example: 1380425
   requestBodies: {}
   securitySchemes:
     microservices_auth:
       type: http
-      description: La méthode d'authorisation de base pour le service
+      description: Le token d'authorisation pour les services
       scheme: bearer
       bearerFormat: "Only the jwt, no 'Bearer '"
