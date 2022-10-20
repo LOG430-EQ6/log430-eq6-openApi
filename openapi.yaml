@@ -48,6 +48,28 @@ paths:
           description: Aucun trajet trouvé
       security:
         - microservices_auth: []
+  /servicesDisponibles:
+    get:
+      tags:
+        - Trajet
+      summary: Obtenir la liste des services externes disponibles
+      description: Obtenir la liste des services externes disponibles
+      operationId: servicesDisponibles
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getServicesOutput'
+        '400':
+          description: Adresse(s) invalide(s)
+        '401':
+          description: Non autorisé
+        '404':
+          description: Aucun trajet trouvé
+        '504':
+          description: Le service externe n'a pas répondu
 components:
   schemas:
     getTrajetInput:
@@ -65,6 +87,10 @@ components:
         serviceExterne:
           type: string
           exemple: api.stm.info
+    getServicesOutput:
+      type: array
+      items: 
+        $ref: '#/components/schemas/ServiceExterne'
     TrajetArray:
       type: array
       items: 
@@ -81,6 +107,15 @@ components:
         durée:
           type: number
           example: 1380425
+    ServiceExterne:
+      type: object
+      properties:
+        nom:
+          type: string
+          example: Api STM
+        url:
+          type: string
+          example: api.stm.info
   requestBodies: {}
   securitySchemes:
     microservices_auth:
