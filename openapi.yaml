@@ -1,0 +1,87 @@
+openapi: 3.0.3
+info:
+  title: LOG430 - eq6 - Service Trajet
+  description: |-
+    Ceci est la documentation OpenApi du service Trajet, dans le cadre du laboratoire du cours de LOG430 Architecture logicielle.
+    Suivez le lien vers la documentation en ligne pour consulter la documentation.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+externalDocs:
+  description: Lien vers la documentation en ligne
+  url: https://log430-eq6.github.io/log430-eq6-openApi/
+servers:
+  - url: https://portainer.10.194.33.156.nip.io/
+tags:
+  - name: Base
+    description: Interface du service commune à tous les services
+  - name: Trajet
+    description: Interface du service trajet
+paths:
+  /trajet:
+    get:
+      tags:
+        - Trajet
+      summary: Obtenir un trajet
+      description: Obtenir un trajet entre deux adresses et en fournissant un mode de transport
+      operationId: getTrajet
+      requestBody:
+        description: Les adresses entre lesquelles on désire obtenir un trajet ainsi que le mode de transport
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/getTrajetInput'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getTrajetOutput'
+        '400':
+          description: Adresses invalides
+        '401':
+          description: Aucun trajet trouvé
+        '404':
+          description: Non autorisé
+      security:
+        - microservices_auth: []
+components:
+  schemas:
+    getTrajetInput:
+      type: object
+      properties:
+        address1:
+          type: string
+          example: 
+        address2:
+          type: string
+          example: 
+        mode:
+          type: string
+          example: auto, bus
+    getTrajetOutput:
+      type: array
+      items: 
+        $ref: '#/components/schemas/Trajet'
+    Trajet:
+      type: object
+      properties:
+        name:
+          type: string
+          example: 437 Lytton
+        departureTime:
+          type: number
+          example: 1666196380425
+        duration:
+          type: number
+          example: 1380425
+  requestBodies: {}
+  securitySchemes:
+    microservices_auth:
+      type: http
+      description: La méthode d'authorisation de base pour le service
+      scheme: bearer
+      bearerFormat: "Only the jwt, no 'Bearer '"
