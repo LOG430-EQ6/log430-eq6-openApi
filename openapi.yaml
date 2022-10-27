@@ -50,13 +50,13 @@ paths:
           description: Le service externe n'a pas répondu
       security:
         - microservices_auth: []
-  /servicesDisponibles:
+  /services-disponibles:
     get:
       tags:
         - Trajet
       summary: Obtenir la liste des services externes disponibles
       description: Obtenir la liste des services externes disponibles
-      operationId: servicesDisponibles
+      operationId: services-disponibles
       responses:
         '200':
           description: Successful operation
