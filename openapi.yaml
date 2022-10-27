@@ -31,7 +31,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/getTrajetInput'
+              $ref: '#/components/schemas/TrajetQuery'
         required: true
       responses:
         '200':
@@ -39,7 +39,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/getTrajetOutput'
+                $ref: '#/components/schemas/TrajetArray'
         '400':
           description: Adresse(s) invalide(s)
         '401':
@@ -63,7 +63,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/getServicesOutput'
+                $ref: '#/components/schemas/ServiceExterneArray'
         '400':
           description: Adresse(s) invalide(s)
         '401':
@@ -74,7 +74,7 @@ paths:
           description: Le service externe n'a pas répondu
 components:
   schemas:
-    getTrajetInput:
+    TrajetQuery:
       type: object
       properties:
         adresse1:
@@ -89,14 +89,7 @@ components:
         serviceExterne:
           type: string
           exemple: api.stm.info
-    getServicesOutput:
-      type: array
-      items: 
-        $ref: '#/components/schemas/ServiceExterne'
-    TrajetArray:
-      type: array
-      items: 
-        $ref: '#/components/schemas/Trajet'
+          description: L'id du service tel que décrit par /services-disponibles
     Trajet:
       type: object
       properties:
@@ -118,6 +111,14 @@ components:
         url:
           type: string
           example: api.stm.info
+    ServiceExterneArray:
+      type: array
+      items: 
+        $ref: '#/components/schemas/ServiceExterne'
+    TrajetArray:
+      type: array
+      items: 
+        $ref: '#/components/schemas/Trajet'
   requestBodies: {}
   securitySchemes:
     microservices_auth:
