@@ -72,6 +72,22 @@ paths:
           description: Aucun trajet trouvé
         '504':
           description: Le service externe n'a pas répondu
+  /monitor:
+    get:
+      tags:
+        - Base
+      summary: Vérifier l'état du service et état de charge
+      description: Renvoie des informations sur l'usage du CPU par le service dans le but de surveiller la charge du service et de s'assurer de son bon fonctionnement.
+      operationId: monitor
+      responses:
+        '200':
+          description: Succès
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MonitorInfo'
+        '500':
+          description: Le service n'est pas disponible
 components:
   schemas:
     TrajetQuery:
@@ -111,6 +127,17 @@ components:
         url:
           type: string
           example: api.stm.info
+    MonitorInfo:
+      type: object
+      properties:
+        cpuLoad:
+          type: number
+          example: 0.23
+          description: La charge du CPU exprimée par un nombre entre 0 et 1
+        status:
+          type: string
+          example: ok
+          description: La string 'ok' si le service fonctionne correctement
     ServiceExterneArray:
       type: array
       items: 
