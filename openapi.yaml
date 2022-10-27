@@ -104,7 +104,7 @@ components:
           example: auto, bus
         serviceExterne:
           type: string
-          exemple: api.stm.info
+          example: Here, Bing
           description: L'id du service tel que décrit par /services-disponibles
     Trajet:
       type: object
@@ -123,10 +123,10 @@ components:
       properties:
         nom:
           type: string
-          example: Api STM
-        url:
+          example: Api Here
+        id:
           type: string
-          example: api.stm.info
+          example: Here, Bing
     MonitorInfo:
       type: object
       properties:
