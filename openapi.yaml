@@ -35,7 +35,7 @@ paths:
         required: true
       responses:
         '200':
-          description: Successful operation
+          description: Succès
           content:
             application/json:
               schema:
@@ -59,7 +59,7 @@ paths:
       operationId: services-disponibles
       responses:
         '200':
-          description: Successful operation
+          description: Succès
           content:
             application/json:
               schema:
